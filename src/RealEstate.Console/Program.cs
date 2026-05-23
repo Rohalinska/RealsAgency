@@ -7,14 +7,14 @@ var service = new PropertyService(repo);
 
 while (true)
 {
-    Console.WriteLine("\n=== REAL ESTATE AGENCY (LAB 35) ===");
+    Console.WriteLine("REAL ESTATE AGENCY (LAB 35)");
     Console.WriteLine("1. Додати нову квартиру");
     Console.WriteLine("2. Показати всі об'єкти (з JSON-файлу)");
     Console.WriteLine("3. Аналітика: Загальна вартість активів");
     Console.WriteLine("4. Пошук: Найдешевші варіанти");
     Console.WriteLine("5. Статистика за типами");
     Console.WriteLine("0. Вихід");
-    Console.Write("\nВаш вибір: ");
+    Console.Write("Ваш вибір: ");
 
     var input = Console.ReadLine();
     if (input == "0") break;
@@ -27,7 +27,7 @@ while (true)
             Console.Write("Поверх: "); int floor = int.Parse(Console.ReadLine() ?? "1");
             
             await service.AddPropertyAsync(new Apartment(addr, price, floor));
-            Console.WriteLine("✅ Об'єкт збережено у database.json!");
+            Console.WriteLine(" Об'єкт збережено у database.json!");
             break;
 
         case "2":
@@ -37,7 +37,7 @@ while (true)
 
         case "3":
             var total = await service.GetTotalPortfolioValueAsync();
-            Console.WriteLine($"💰 Загальна ціна всіх об'єктів: {total} грн");
+            Console.WriteLine($" Загальна ціна всіх об'єктів: {total} грн");
             break;
 
         case "4":
