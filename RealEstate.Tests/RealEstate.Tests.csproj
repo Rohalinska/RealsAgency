@@ -23,8 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\RealEstate.Domain\RealEstate.Domain.csproj" />
-    <ProjectReference Include="..\..\src\RealEstate.Application\RealEstate.Application.csproj" />
+    <ProjectReference Include="..\src\RealEstate.Domain\RealEstate.Domain.csproj" />
+    <ProjectReference Include="..\src\RealEstate.Application\RealEstate.Application.csproj" />
   </ItemGroup>
 
 </Project>
