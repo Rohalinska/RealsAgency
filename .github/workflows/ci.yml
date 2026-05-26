@@ -34,14 +34,17 @@ jobs:
         restore-keys: |
           nuget-cache-${{ runner.os }}-
 
+    # РОЗУМНИЙ RESTORE: автоматично шукає будь-який файл рішення (.sln) у репозиторії
     - name: Restore
-      run: dotnet restore RealEstateAgency.sln
+      run: dotnet restore
 
+    # РОЗУМНИЙ BUILD: збирає проєкт без прив'язки до конкретного імені файлу
     - name: Build
-      run: dotnet build RealEstateAgency.sln --configuration Release --no-restore
+      run: dotnet build --configuration Release --no-restore
 
+    # РОЗУМНИЙ TEST: запускає тести для всього рішення
     - name: Test
-      run: dotnet test RealEstateAgency.sln --configuration Release --no-build --verbosity normal
+      run: dotnet test --configuration Release --no-build --verbosity normal
 
     - name: Upload Test Results
       if: always()
