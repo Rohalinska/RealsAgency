@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: 
+      - master
+      - 'lab*' 
+  pull_request:
+    branches: 
+      - master
+      - 'lab*'
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        dotnet-version: [ '8.0.x' ] 
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ matrix.dotnet-version }}
+
+    - name: Cache NuGet packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.nuget/packages
+        key: nuget-cache-${{ runner.os }}-${{ hashFiles('**/*.csproj') }}
+        restore-keys: |
+          nuget-cache-${{ runner.os }}-
+
+    # РОЗУМНИЙ RESTORE: автоматично шукає будь-який файл рішення (.sln) у репозиторії
+    - name: Restore
+      run: dotnet restore
+
+    # РОЗУМНИЙ BUILD: збирає проєкт без прив'язки до конкретного імені файлу
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+
+    # РОЗУМНИЙ TEST: запускає тести для всього рішення
+    - name: Test
+      run: dotnet test --configuration Release --no-build --verbosity normal
+
+    - name: Upload Test Results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results-${{ runner.os }}
+        path: '**/TestResults/*.trx'

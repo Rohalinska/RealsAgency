@@ -35,4 +35,11 @@ public class FilePropertyRepository : IPropertyRepository
             await File.WriteAllTextAsync(_filePath, JsonSerializer.Serialize(properties));
         }
     }
+    
+    public async Task DeleteAsync(int id)
+    {
+        var properties = await GetAllAsync();
+        properties.RemoveAll(p => p.Id.GetHashCode() == id);
+        await File.WriteAllTextAsync(_filePath, JsonSerializer.Serialize(properties));
+    }
 }
