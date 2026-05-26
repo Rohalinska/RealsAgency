@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using Moq;
 using Xunit;
 // Переконуйтеся, що ці namespace збігаються з вашим проектом
-using RealEstate.Domain; 
+using RealEstate.Domain;
+using RealEstate.Application;
+using RealEstate.Infrastructure; 
 
 namespace RealEstate.Tests
 {
